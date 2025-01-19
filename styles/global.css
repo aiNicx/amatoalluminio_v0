@@ -1,0 +1,154 @@
+/* Reset and base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom properties for animations */
+:root {
+  --transition-short: 150ms;
+  --transition-medium: 300ms;
+  --transition-long: 500ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Transition Classes */
+.transition-all {
+  transition: all var(--transition-medium) var(--ease-default);
+}
+
+.transition-transform {
+  transition: transform var(--transition-medium) var(--ease-default);
+}
+
+.transition-opacity {
+  transition: opacity var(--transition-medium) var(--ease-default);
+}
+
+/* Animation Utility Classes */
+.animate-fade-in {
+  animation: fadeIn var(--transition-medium) var(--ease-default);
+}
+
+.animate-slide-up {
+  animation: slideInFromBottom var(--transition-medium) var(--ease-default);
+}
+
+.animate-slide-left {
+  animation: slideInFromLeft var(--transition-medium) var(--ease-default);
+}
+
+.animate-scale {
+  animation: scaleUp var(--transition-medium) var(--ease-default);
+}
+
+/* Hover Effects */
+.hover-scale {
+  transition: transform var(--transition-short) var(--ease-bounce);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-lift {
+  transition: transform var(--transition-short) var(--ease-out);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-bright {
+  transition: filter var(--transition-short) var(--ease-default);
+}
+
+.hover-bright:hover {
+  filter: brightness(1.1);
+}
+
+/* Interactive Elements */
+button, 
+a {
+  transition: all var(--transition-short) var(--ease-default);
+}
+
+/* Image Transitions */
+img {
+  transition: opacity var(--transition-medium) var(--ease-default);
+}
+
+img.lazy {
+  opacity: 0;
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-slide-left,
+  .animate-scale {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .hover-scale:hover,
+  .hover-lift:hover {
+    transform: none !important;
+  }
+}

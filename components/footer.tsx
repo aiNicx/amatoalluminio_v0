@@ -46,7 +46,7 @@ export default function Footer() {
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link}>
-                    <a href="#" className="text-sm text-gray-400 hover:text-white">
+                    <a href="#" className="text-sm text-gray-400 transition-colors duration-300 ease-in-out hover:text-white">
                       {link}
                     </a>
                   </li>
@@ -55,14 +55,23 @@ export default function Footer() {
             </div>
           ))}
         </div>
-        
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-gray-800 pt-8 md:flex-row">
           <div className="flex gap-4">
-            <Facebook className="h-5 w-5 cursor-pointer text-gray-400 hover:text-white" />
-            <Twitter className="h-5 w-5 cursor-pointer text-gray-400 hover:text-white" />
-            <Instagram className="h-5 w-5 cursor-pointer text-gray-400 hover:text-white" />
-            <Youtube className="h-5 w-5 cursor-pointer text-gray-400 hover:text-white" />
-            <Linkedin className="h-5 w-5 cursor-pointer text-gray-400 hover:text-white" />
+            <a href="#" aria-label="Visita la nostra pagina Facebook" className="transition-transform duration-300 ease-in-out hover:scale-110">
+              <Facebook className="h-5 w-5 text-gray-400 transition-colors duration-300 ease-in-out hover:text-white" />
+            </a>
+            <a href="#" aria-label="Seguici su Twitter" className="transition-transform duration-300 ease-in-out hover:scale-110">
+              <Twitter className="h-5 w-5 text-gray-400 transition-colors duration-300 ease-in-out hover:text-white" />
+            </a>
+            <a href="#" aria-label="Seguici su Instagram" className="transition-transform duration-300 ease-in-out hover:scale-110">
+              <Instagram className="h-5 w-5 text-gray-400 transition-colors duration-300 ease-in-out hover:text-white" />
+            </a>
+            <a href="#" aria-label="Visita il nostro canale Youtube" className="transition-transform duration-300 ease-in-out hover:scale-110">
+              <Youtube className="h-5 w-5 text-gray-400 transition-colors duration-300 ease-in-out hover:text-white" />
+            </a>
+            <a href="#" aria-label="Seguici su LinkedIn" className="transition-transform duration-300 ease-in-out hover:scale-110">
+              <Linkedin className="h-5 w-5 text-gray-400 transition-colors duration-300 ease-in-out hover:text-white" />
+            </a>
           </div>
           <p className="text-sm text-gray-400">
             © {new Date().getFullYear()} Andersen Corporation. Tutti i diritti riservati.

@@ -18,7 +18,7 @@ export default function Navigation() {
             <li key={category.name}>
               <Link
                 href="#"
-                className="flex items-center gap-2 text-sm font-medium text-gray-700 transition-colors hover:text-[rgb(0,146,128)]"
+                className="flex items-center gap-2 text-sm font-medium text-gray-700 transition-all duration-200 ease-in-out hover:text-[rgb(0,146,128)] hover:scale-105 focus:text-[rgb(0,146,128)] focus:scale-105 focus:outline-none"
               >
                 <category.icon className="h-5 w-5" />
                 {category.name}

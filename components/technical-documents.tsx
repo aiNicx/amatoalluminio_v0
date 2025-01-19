@@ -1,7 +1,8 @@
 'use client'
 
 import { ChevronDown } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { useReducedMotion } from './hooks/useReducedMotion'
 
 const documents = [
   {
@@ -20,6 +21,8 @@ const documents = [
 
 export default function TechnicalDocuments() {
   const [openSection, setOpenSection] = useState<number | null>(null)
+  const [contentHeight, setContentHeight] = useState<{[key: number]: number}>({});
+  const contentRefs = useRef<{[key: number]: HTMLDivElement | null}>({})
 
   return (
     <section className="bg-[rgb(0,146,128)] py-12 lg:py-16">
@@ -39,14 +42,26 @@ export default function TechnicalDocuments() {
                   }`}
                 />
               </button>
-              {openSection === index && (
-                <div className="border-t px-4 py-3">
+              <div 
+                className={`overflow-hidden transition-[height] duration-300 ease-in-out ${openSection === index ? 'border-t' : ''}`}
+                style={{
+                  height: openSection === index ? `${contentHeight[index]}px` : '0',
+                }}
+                role="region"
+                aria-labelledby={`accordion-header-${index}`}
+                aria-hidden={openSection !== index}
+              >
+                <div 
+                  ref={el => contentRefs.current[index] = el}
+                  className="px-4 py-3"
+                >
                   <ul className="space-y-2">
                     {doc.items.map((item, idx) => (
                       <li key={idx}>
                         <a
                           href="#"
                           className="text-sm text-gray-600 hover:text-[rgb(0,146,128)]"
+                          role="menuitem"
                         >
                           {item}
                         </a>
@@ -54,12 +69,33 @@ export default function TechnicalDocuments() {
                     ))}
                   </ul>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
       </div>
     </section>
   )
-}
 
+  // Effect to measure and update content heights
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    // Skip height calculations if user prefers reduced motion
+    if (prefersReducedMotion) return;
+    
+    const updateHeight = () => {
+      const newHeights: {[key: number]: number} = {};
+      documents.forEach((_, index) => {
+        if (contentRefs.current[index]) {
+          newHeights[index] = contentRefs.current[index]?.scrollHeight || 0;
+        }
+      });
+      setContentHeight(newHeights);
+    };
+
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+}

@@ -6,28 +6,32 @@ import { useState } from "react"
 
 const articles = [
   {
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/images/GSG_4830.jpg",
     title: "Costruire case migliori",
     description: "Scopri le moderne tecniche di installazione delle finestre",
-    date: "15 gen 2024"
+    date: "15 gen 2024",
+    alt: "Moderna installazione di finestre in alluminio in un edificio residenziale"
   },
   {
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/images/GSG_4833.jpg",
     title: "Guida all'installazione",
     description: "Processo di installazione passo-passo",
-    date: "10 gen 2024"
+    date: "10 gen 2024",
+    alt: "Dettaglio del processo di installazione di una finestra in alluminio"
   },
   {
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/images/GSG_4830.jpg",
     title: "Innovazione di prodotto",
     description: "Le ultime tecnologie per finestre",
-    date: "5 gen 2024"
+    date: "5 gen 2024",
+    alt: "Innovativa finestra in alluminio con tecnologia all'avanguardia"
   },
   {
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/images/GSG_4833.jpg",
     title: "Focus sulla sostenibilità",
     description: "Pratiche di edilizia sostenibile",
-    date: "30 dic 2023"
+    date: "30 dic 2023",
+    alt: "Finestra sostenibile in alluminio che mostra efficienza energetica"
   }
 ]
 
@@ -55,6 +59,7 @@ export default function ProViews() {
               }`}
               onClick={prevSlide}
               disabled={currentSlide === 0}
+              aria-label="Slide precedente"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -64,6 +69,7 @@ export default function ProViews() {
               }`}
               onClick={nextSlide}
               disabled={currentSlide === maxSlide}
+              aria-label="Slide successiva"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -71,7 +77,7 @@ export default function ProViews() {
         </div>
         <div className="relative overflow-hidden">
           <div
-            className="flex transition-transform duration-300"
+            className="flex transition-transform duration-500 ease-out will-change-transform"
             style={{ transform: `translateX(-${currentSlide * 33.33}%)` }}
           >
             {articles.map((article, index) => (
@@ -82,9 +88,10 @@ export default function ProViews() {
                 <div className="group cursor-pointer overflow-hidden rounded-lg border">
                   <div className="relative h-48">
                     <Image
-                      src={article.image || "/placeholder.svg"}
-                      alt={article.title}
+                      src={article.image}
+                      alt={article.alt}
                       fill
+                      loading="lazy"
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
